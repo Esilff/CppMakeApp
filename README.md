@@ -1,2 +1,2 @@
 # CppMakeApp
-A script made to generate a cpp app
+This little project was made in order to learn bash scripting.
