@@ -14,6 +14,11 @@ CYAN='\033[0;36m'
 YELLOW='\033[0;33m'
 NC='\033[0m' # No Color
 
+
+# ---------------------------- start ----------------------------------
+
+#asking for project path and project name
+
 echo -e "Starting process in order to create a C++ Application, please provide the required information :\n"
 read -p 'Project-name: ' pjnamevar #ask for the project name
 read -p 'Project-path: ' pjpathvar #ask for the project path
@@ -34,7 +39,7 @@ printf "#include <iostream>
 
 #making a basic Cmake file
 
-printf "cmake_minimum_required(VERSION 3.2.10)
+printf "cmake_minimum_required(VERSION 3.12)
 
 project(${pjnamevar})
 
@@ -43,7 +48,7 @@ add_executable(\${PROJECT_NAME} main.cpp)" > CMakeLists.txt
 cd ..
 mkdir build
 
-#adding a run script to build, compile and run the project
+#adding a run script in order to build, compile and run the project
 
 printf "echo -e \"${CYAN}Building project :${NC}\"
 cmake -S ./src -B ./build
