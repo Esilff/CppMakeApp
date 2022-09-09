@@ -1,1 +1,3 @@
-testfolder/*
+testfolder/build/
+testfolder/src/
+testfolder/run.sh
