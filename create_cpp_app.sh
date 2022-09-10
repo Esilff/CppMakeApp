@@ -19,7 +19,7 @@ NC='\033[0m' # No Color
 
 #asking for project path and project name
 
-echo -e "Starting process in order to create a C++ Application, please provide the required information :\n"
+echo -e "${CYAN}Starting process in order to create a C++ Application, please provide the required information :\n${NC}"
 read -p 'Project-name: ' pjnamevar #ask for the project name
 read -p 'Project-path: ' pjpathvar #ask for the project path
 path="${pjpathvar}/${pjnamevar}" # concat the project path and project name resulting in $projectPath/$projectName
