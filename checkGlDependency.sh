@@ -6,35 +6,54 @@ GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 NC='\033[0m'
 
-
+#Check if echoes should be ignored, for now it's only used in setupGlProject.sh
+#because not ignoring echoes is causing an exit 127 because of the color codes.
+ignoreEcho=false
+if [[ $1 = '-e' ]]; then
+    ignoreEcho=true
+fi
 #Check for GLFW
+if [[ $ignoreEcho = false ]]; then
 echo -e "${YELLOW}Checking for GLFW dependency${NC}"
+fi
 pkg-config --libs glfw3 > ./glfwCheck.txt 2>&1
 glfwCheck=$(<glfwCheck.txt)
 rm glfwCheck.txt
 if [[ $glfwCheck == "-lglfw" ]]; then
-    echo -e "${CYAN}[Dependency] : GLFW checked.${NC}"
+    if [[ $ignoreEcho = false ]]; then
+        echo -e "${CYAN}[Dependency] : GLFW checked.${NC}"
+    fi
 else 
-    echo -e "${RED}[Error]${NC} : GLFW3 is missing use the following commands to install it :
+    if [[ $ignoreEcho = false ]]; then
+        echo -e "${RED}[Error]${NC} : GLFW3 is missing use the following commands to install it :
 sudo apt-get install libglfw3
 sudo apt-get install libglfw3-dev"
+    fi
     exit 1
 fi
 #Check for Xorg presence
-echo -e "${YELLOW}Checking for Xorg dependency${NC}"
+if [[ $ignoreEcho = false ]]; then
+    echo -e "${YELLOW}Checking for Xorg dependency${NC}"
+fi
 dpkg -s xorg > ./xorgState.txt 2>&1
 xorgState=$(<xorgState.txt)
 rm xorgState.txt
 dpkgSCheck='Status: install ok installed'
 if [[ "$xorgState" == *"$dpkgSCheck"* ]]; then
-    echo -e "${CYAN}[Dependency] : Xorg checked.${NC}"
+    if [[ $ignoreEcho = false ]]; then
+        echo -e "${CYAN}[Dependency] : Xorg checked.${NC}"
+    fi
 else 
-    echo -e "${RED}[Error]${NC} : Xorg is missing use the following command to install it :
+    if [[ $ignoreEcho = false ]]; then
+        echo -e "${RED}[Error]${NC} : Xorg is missing use the following command to install it :
 sudo apt install xorg-dev"
+    fi
     exit 1
 fi
 #Check for wayland dependency
-echo -e "${YELLOW}Checking for Wayland dependencies.${NC}"
+if [[ $ignoreEcho = false ]]; then
+    echo -e "${YELLOW}Checking for Wayland dependencies.${NC}"
+fi
 waylandDependency=('libwayland-dev' 'libxkbcommon-dev' 'wayland-protocols' 'extra-cmake-modules')
 missingDependency= false
 for i in ${!waylandDependency[@]}; do
@@ -42,13 +61,21 @@ for i in ${!waylandDependency[@]}; do
     commandResult=$(<commandResult.txt)
     rm commandResult.txt
     if [[ "$commandResult" == *"$dpkgSCheck"* ]]; then
-        echo -e "${CYAN}[Dependency] : ${waylandDependency[$i]} checked.${NC}"
-    else echo -e "${RED}[Error]${NC} : ${waylandDependency[$i]} is missing use the following command to install it :
+        if [[ $ignoreEcho = false ]]; then
+            echo -e "${CYAN}[Dependency] : ${waylandDependency[$i]} checked.${NC}"
+        fi
+    else 
+    if [[ $ignoreEcho = false ]]; then
+        echo -e "${RED}[Error]${NC} : ${waylandDependency[$i]} is missing use the following command to install it :
 sudo apt install ${waylandDependency[$i]}"
+    fi
         $missingDependency= true
     fi
 done
 if [[ $missingDependency = true ]]; then 
     exit 1 
-fi  
-echo -e "${GREEN}[GL] All dependencies are checked.${NC}👍️"
+fi
+if [[ $ignoreEcho = false ]]; then  
+    echo -e "${GREEN}[GL] All dependencies are checked.${NC}👍️"
+fi
+exit 0
