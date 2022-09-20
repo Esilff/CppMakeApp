@@ -47,6 +47,8 @@ add_executable(\${PROJECT_NAME} main.cpp)" > CMakeLists.txt
 
 cd ..
 mkdir build
+mkdir scripts
+cd scripts
 
 #adding a run script in order to build, compile and run the project
 
@@ -59,4 +61,4 @@ echo  -e \"${YELLOW}Running project ${NC}\":
 " > run.sh
 chmod +x ./run.sh
 
-cmake -S ./src -B ./build
+cmake -S ../src -B ../build
