@@ -7,7 +7,7 @@ YELLOW='\033[0;33m'
 NC='\033[0m'
 
 #Check if echoes should be ignored, for now it's only used in setupGlProject.sh
-#because not ignoring echoes is causing an exit 127 because of the color codes.
+#because not ignoring echoes is causing an exit 127 with the color codes.
 ignoreEcho=false
 if [[ $1 = '-e' ]]; then
     ignoreEcho=true
