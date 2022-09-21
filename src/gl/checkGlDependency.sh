@@ -9,7 +9,7 @@ NC='\033[0m'
 #Check if echoes should be ignored, for now it's only used in setupGlProject.sh
 #because not ignoring echoes is causing an exit 127 with the color codes.
 ignoreEcho=false
-if [[ $1 = '-e' ]]; then
+if [[ $1 = '-i' ]]; then
     ignoreEcho=true
 fi
 #Check for GLFW

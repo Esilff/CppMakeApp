@@ -24,6 +24,11 @@ read -p 'Project-name: ' pjnamevar #ask for the project name
 read -p 'Project-path: ' pjpathvar #ask for the project path
 path="${pjpathvar}/${pjnamevar}" # concat the project path and project name resulting in $projectPath/$projectName
 mkdir -p "$path"
+echo 'Do you want to add the following dependencies [GLFW/OpenGL] ?'
+answer=$(./gl/askForGl.sh)
+if [[ $answer == "GL" ]]; then
+    cmakeGlConf=$(./gl/cmake.sh)
+fi
 cd $path
 mkdir src
 cd src
@@ -36,11 +41,8 @@ project(${pjnamevar})
 
 add_executable(\${PROJECT_NAME} main.cpp)" > CMakeLists.txt
 
-echo 'Do you want to add the following dependencies [GLFW/OpenGL] ?'
 
-
-
-if [[ $addGlDep = true ]]; then
+if [[ $answer == "GL" ]]; then
     $(./gl/setupGlProject.sh)
 else 
     printf "#include <iostream>

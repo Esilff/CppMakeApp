@@ -1,0 +1,9 @@
+set(CMAKE_RUNTIMER_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/../build\")
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
+
+find_package(glfw3 3.3 REQUIRED)
+find_package(OpenGL REQUIRED)
+
+target_link_librairies(${PROJECT_NAME} glfw ${GLFW_LIBRAIRIES})
+target_link_librairies(${PROJECT_NAME} OpenGL::GL)
