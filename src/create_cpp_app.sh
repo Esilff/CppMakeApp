@@ -28,15 +28,6 @@ cd $path
 mkdir src
 cd src
 
-#making the main.cpp file
-
-printf "#include <iostream>
-
-    int main(void) {
-        std::cout << \"Hello, world !\" << std::endl;
-        return 0;
-    }" > main.cpp
-
 #making a basic Cmake file
 
 printf "cmake_minimum_required(VERSION 3.12)
@@ -44,6 +35,22 @@ printf "cmake_minimum_required(VERSION 3.12)
 project(${pjnamevar})
 
 add_executable(\${PROJECT_NAME} main.cpp)" > CMakeLists.txt
+
+echo 'Do you want to add the following dependencies [GLFW/OpenGL] ?'
+
+
+
+if [[ $addGlDep = true ]]; then
+    $(./gl/setupGlProject.sh)
+else 
+    printf "#include <iostream>
+
+    int main(void) {
+        std::cout << \"Hello, world !\" << std::endl;
+        return 0;
+    }" > main.cpp
+
+fi
 
 cd ..
 mkdir build
