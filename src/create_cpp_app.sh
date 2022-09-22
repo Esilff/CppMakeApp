@@ -27,7 +27,7 @@ mkdir -p "$path"
 echo 'Do you want to add the following dependencies [GLFW/OpenGL] ?'
 answer=$(./gl/askForGl.sh)
 if [[ $answer == "GL" ]]; then
-    cmakeGlConf=$(./gl/cmake.sh)
+    $(./gl/setupGl.sh $path)
 fi
 cd $path
 mkdir src
@@ -43,7 +43,7 @@ add_executable(\${PROJECT_NAME} main.cpp)" > CMakeLists.txt
 
 
 if [[ $answer == "GL" ]]; then
-    $(./gl/setupGlProject.sh)
+    $(../gl/setupGl.sh)
 else 
     printf "#include <iostream>
 
